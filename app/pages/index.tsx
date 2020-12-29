@@ -4,6 +4,14 @@ import { Suspense } from "react"
 import Layout from "app/layouts/Layout"
 import { Link, usePaginatedQuery, useRouter, BlitzPage } from "blitz"
 
+interface BGProps {
+  bgColor: any
+}
+
+interface ClassProps {
+  className: any
+}
+
 const ITEMS_PER_PAGE = 12
 
 export const ColorsList = () => {
@@ -32,7 +40,7 @@ export const ColorsList = () => {
         {[...Array(pageCount)].map((e, pageNum) => {
           return (
             <PageSelect
-              className={page === pageNum ? "active-page" : null}
+              className={page === pageNum ? "active-page" : ""}
               onClick={() => goToPage(pageNum)}
             >
               {pageNum + 1}
@@ -60,12 +68,12 @@ const PaginationContainer = styled.div`
   margin: 0 0 6rem 0;
 `
 
-const PageSelect = styled.a`
+const PageSelect = styled.a<ClassProps>`
   cursor: pointer;
   font-size: 2.4rem;
 `
 
-const Color = styled.div`
+const Color = styled.div<BGProps>`
   width: 22rem;
   height: 26.1rem;
   display: flex;

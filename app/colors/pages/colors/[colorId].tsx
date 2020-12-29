@@ -7,6 +7,10 @@ import styled from "@emotion/styled"
 import tinycolor from "tinycolor2"
 import Button from "../../../components/Button"
 
+interface Props {
+  bgColor: any
+}
+
 export const Color = () => {
   const router = useRouter()
   const colorId = useParam("colorId", "number")
@@ -41,7 +45,7 @@ const DetailContainer = styled.div`
   margin: 10rem auto;
 `
 
-const BigColorBox = styled.div`
+const BigColorBox = styled.div<Props>`
   width: 104rem;
   height: 69rem;
   display: flex;
@@ -69,7 +73,7 @@ const TintContainer = styled.div`
   align-items: center;
 `
 
-const Tints = styled.div`
+const Tints = styled.div<Props>`
   width: 17.5rem;
   height: 17.5rem;
   display: flex;
