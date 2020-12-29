@@ -11,7 +11,7 @@ export default async function getColors({ where, orderBy, skip = 0, take }: GetC
     skip,
   })
 
-  const count = await db.color.count()
+  const count = await db.color.count({ where })
   const hasMore = typeof take === "number" ? skip + take < count : false
   const pageCount = Math.ceil(count / take!)
   const nextPage = hasMore ? { take, skip: skip + take! } : null

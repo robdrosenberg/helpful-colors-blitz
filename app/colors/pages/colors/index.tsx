@@ -1,39 +1,28 @@
+import styled from "@emotion/styled"
+import getColors from "../../queries/getColors"
 import { Suspense } from "react"
 import Layout from "app/layouts/Layout"
 import { Link, usePaginatedQuery, useRouter, BlitzPage } from "blitz"
-import getColors from "app/colors/queries/getColors"
+import ColorGrid from "../../components/ColorGrid"
+import Pagination from "../../../components/Pagination"
 
-const ITEMS_PER_PAGE = 16
+const ITEMS_PER_PAGE = 12
 
 export const ColorsList = () => {
   const router = useRouter()
+  const colorGroupFilter = router.query.colorGroup ? String(router.query.colorGroup) : undefined
   const page = Number(router.query.page) || 0
-  const [{ colors, hasMore }] = usePaginatedQuery(getColors, {
+  const [{ colors, pageCount }] = usePaginatedQuery(getColors, {
+    where: { colorGroup: colorGroupFilter },
     orderBy: { id: "asc" },
     skip: ITEMS_PER_PAGE * page,
     take: ITEMS_PER_PAGE,
   })
-  const goToPreviousPage = () => router.push({ query: { page: page - 1 } })
-  const goToNextPage = () => router.push({ query: { page: page + 1 } })
 
   return (
     <div>
-      <ul>
-        {colors.map((color) => (
-          <li key={color.id}>
-            <Link href={`/colors/${color.id}`}>
-              <a>{color.colorValue}</a>
-            </Link>
-          </li>
-        ))}
-      </ul>
-
-      <button disabled={page === 0} onClick={goToPreviousPage}>
-        Previous
-      </button>
-      <button disabled={!hasMore} onClick={goToNextPage}>
-        Next
-      </button>
+      <ColorGrid colors={colors} />
+      <Pagination colorGroupFilter={colorGroupFilter} page={page} pageCount={pageCount} />
     </div>
   )
 }
@@ -41,12 +30,6 @@ export const ColorsList = () => {
 const ColorsPage: BlitzPage = () => {
   return (
     <div>
-      <p>
-        <Link href="/colors/new">
-          <a>Create Color</a>
-        </Link>
-      </p>
-
       <Suspense fallback={<div>Loading...</div>}>
         <ColorsList />
       </Suspense>

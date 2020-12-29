@@ -12,7 +12,6 @@ interface Props {
 }
 
 export const Color = () => {
-  const router = useRouter()
   const colorId = useParam("colorId", "number")
   const [color] = useQuery(getColor, { where: { id: colorId } })
   const tintColors: string[] = []

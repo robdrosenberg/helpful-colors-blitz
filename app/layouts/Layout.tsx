@@ -1,7 +1,7 @@
 import { ReactNode } from "react"
 import { Head } from "blitz"
 import NavBar from "../components/NavBar"
-import SideBar from "./SideBar"
+import SideBar from "../components/SideBar"
 import styled from "@emotion/styled"
 
 type LayoutProps = {

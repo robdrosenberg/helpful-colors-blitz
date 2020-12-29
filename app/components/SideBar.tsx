@@ -1,44 +1,30 @@
 import { Suspense } from "react"
 import styled from "@emotion/styled"
-import Button from "../components/Button"
+import Button from "./Button"
 import { Link, useQuery } from "blitz"
-import getColors from "../colors/queries/getColors"
+import getColorsInfo from "../colors/queries/getColorsInfo"
 
 const SideMenu = ({}) => {
-  const [colors] = useQuery(getColors, {
-    take: 1,
-  })
-  console.log(colors)
+  const [{ colorGroups, count }] = useQuery(getColorsInfo, {})
+  const min = 1
+  const max = count
+  const randomID = Math.floor(Math.random() * (max - min) + min)
   return (
     <div>
-      <Link href="/">
+      <Link href={`/colors/${randomID}`}>
         <RandomButton>Random Color</RandomButton>
       </Link>
       <Colors>
-        <li>
-          <a href="">Red</a>
-        </li>
-        <li>
-          <a href="">Orange</a>
-        </li>
-        <li>
-          <a href="">Yellow</a>
-        </li>
-        <li>
-          <a href="">Green</a>
-        </li>
-        <li>
-          <a href="">Blue</a>
-        </li>
-        <li>
-          <a href="">Purple</a>
-        </li>
-        <li>
-          <a href="">Brown</a>
-        </li>
-        <li>
-          <a href="">Gray</a>
-        </li>
+        {colorGroups &&
+          colorGroups.map((group) => {
+            return (
+              <li>
+                <Link href={`/colors?colorGroup=${group.colorGroup}`}>
+                  <a>{group.colorGroup}</a>
+                </Link>
+              </li>
+            )
+          })}
       </Colors>
     </div>
   )
