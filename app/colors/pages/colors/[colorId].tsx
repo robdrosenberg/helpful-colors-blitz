@@ -53,6 +53,10 @@ const BigColorBox = styled.div<Props>`
   border: 1px solid #fdfdfd;
   border-radius: 10px;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 300ms ease-out;
+  :hover {
+    box-shadow: 7px 7px 25px rgba(0, 0, 0, 0.25);
+  }
   justify-content: flex-end;
   margin-bottom: 3rem;
   p {
@@ -82,6 +86,10 @@ const Tints = styled.div<Props>`
   border-radius: 10px;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
   justify-content: flex-end;
+  transition: box-shadow 300ms ease-out;
+  :hover {
+    box-shadow: 7px 7px 25px rgba(0, 0, 0, 0.25);
+  }
   p {
     font-size: 2.4rem;
     padding: 1.75rem 2.25rem;

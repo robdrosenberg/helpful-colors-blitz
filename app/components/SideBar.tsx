@@ -17,10 +17,11 @@ const SideMenu = ({}) => {
       <Colors>
         {colorGroups &&
           colorGroups.map((group) => {
+            const color = group.colorGroup
             return (
               <li>
-                <Link href={`/colors?colorGroup=${group.colorGroup}`}>
-                  <a>{group.colorGroup}</a>
+                <Link href={`/colors?colorGroup=${color}`}>
+                  <ColorGroupLink color={color}>{color}</ColorGroupLink>
                 </Link>
               </li>
             )
@@ -71,17 +72,24 @@ const Colors = styled.ul`
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  li {
+    text-transform: capitalize;
+  }
   @media (min-width: 1400px) {
     display: block;
     font-size: 2.8rem;
     margin: 0;
     li:not(:last-child) {
-      /* margin-bottom: 1.8rem;
-      margin-right: 0; */
       margin: 0 0 1.8rem 0;
     }
   }
-  /* ADD HOVER STATE */
+`
+
+const ColorGroupLink = styled.a`
+  cursor: pointer;
+  :hover {
+    color: ${(props) => props.color};
+  }
 `
 
 export default SideBar
